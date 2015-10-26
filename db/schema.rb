@@ -17,7 +17,8 @@ ActiveRecord::Schema.define(version: 20151026180748) do
   enable_extension "plpgsql"
 
   create_table "goals", force: :cascade do |t|
-    t.text     "body",                       null: false
+    t.string   "title",                      null: false
+    t.text     "body"
     t.integer  "user_id",                    null: false
     t.boolean  "private",    default: false
     t.boolean  "completed",  default: false

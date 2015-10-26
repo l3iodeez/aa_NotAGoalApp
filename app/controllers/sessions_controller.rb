@@ -1,5 +1,7 @@
 class SessionsController < ApplicationController
 
+  before_action :verify_signed_out, only: [:new, :create]
+
   def new
     render :new
   end
@@ -22,5 +24,11 @@ class SessionsController < ApplicationController
     sign_out!
     redirect_to new_session_url
   end
+
+  private
+
+    def verify_signed_out
+      redirect_to user_url(current_user) if signed_in?
+    end
 
 end

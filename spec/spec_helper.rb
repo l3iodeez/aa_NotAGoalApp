@@ -41,15 +41,15 @@ RSpec.configure do |config|
   end
 end
 
-  def sign_up(username)
+  def sign_up(username, password)
     visit "/users/new"
     fill_in 'Username', with: username
-    fill_in 'Password', with: "password"
+    fill_in 'Password', with: password
     click_button "Create User"
   end
 
   def sign_up_as_henry_henry
-    sign_up("HenryHenry")
+    sign_up("HenryHenry", "password")
   end
 
   def sign_in(username)
@@ -63,7 +63,18 @@ end
     sign_in("HenryHenry")
   end
 
+  def create_user(username, password = "password")
+    sign_up(username, password)
+    click_button "Sign Out"
+  end
 
+  def create_goal(title, body, private = true)
+    visit new_goal_url
+    fill_in "Title", with: title
+    fill_in "Body", with: body
+    private ? choose("Private") : choose("Public")
+    click_button "Add Goal"
+  end
 
 # The settings below are suggested to provide a good initial experience
 # with RSpec, but feel free to customize to your heart's content.
