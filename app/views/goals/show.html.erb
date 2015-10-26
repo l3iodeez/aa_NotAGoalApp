@@ -10,3 +10,16 @@
 <br>
 
 <%= render 'shared/delete_goal', goal: @goal %>
+
+
+<p>Comments<p>
+  <% @goal.comments.each do |comment| %>
+    <p> <%= comment.body %> -- by <%= comment.author.username %></p>
+    <br>
+  <% end %>
+  <br>
+  <br>
+
+<p>Add Comment!</p>
+
+<%= render 'shared/comment_form', goal_id: @goal.id %>

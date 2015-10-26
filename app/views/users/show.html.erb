@@ -23,3 +23,18 @@
 <% if current_user == @user %>
   <a href="<%= new_goal_url %>">Add Goal</a>
 <% end %>
+
+<br>
+<br>
+
+<p>Comments<p>
+  <% @user.comments.each do |comment| %>
+    <p> <%= comment.body %> -- by <%= comment.author.username %></p>
+    <br>
+  <% end %>
+  <br>
+  <br>
+
+<p>Add Comment!</p>
+
+<%= render 'shared/comment_form', goal_id: nil, user_id: @user.id %>

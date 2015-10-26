@@ -1,0 +1,36 @@
+<% if goal_id
+    action = goal_comments_url(goal_id)
+    value_id = goal_id
+    value_type = "Goal"
+  else
+    action = user_comments_url(user_id)
+    value_id = user_id
+    value_type = "User"
+  end %>
+
+<form action="<%= action %>" method="post">
+
+  <%= auth_token %>
+
+  <label>
+    Comment Body
+    <textarea
+      name="comment[body]"></textarea>
+  </label>
+
+  <input
+    type="hidden"
+    name="comment[commentable_type]"
+    value="<%= value_type %>">
+  </input>
+
+  <input
+    type="hidden"
+    name="comment[commentable_id]"
+    value="<%= value_id %>">
+  </input>
+  <br>
+  <br>
+
+  <button>Add Comment</button>
+</form>
