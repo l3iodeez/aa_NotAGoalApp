@@ -39,6 +39,31 @@ RSpec.configure do |config|
     # `true` in RSpec 4.
     mocks.verify_partial_doubles = true
   end
+end
+
+  def sign_up(username)
+    visit "/users/new"
+    fill_in 'Username', with: username
+    fill_in 'Password', with: "password"
+    click_button "Create User"
+  end
+
+  def sign_up_as_henry_henry
+    sign_up("HenryHenry")
+  end
+
+  def sign_in(username)
+    visit "/session/new"
+    fill_in 'Username', with: username
+    fill_in 'Password', with: "password"
+    click_button "Sign In"
+  end
+
+  def sign_in_as_henry_henry
+    sign_in("HenryHenry")
+  end
+
+
 
 # The settings below are suggested to provide a good initial experience
 # with RSpec, but feel free to customize to your heart's content.
@@ -89,4 +114,3 @@ RSpec.configure do |config|
   # as the one that triggered the failure.
   Kernel.srand config.seed
 =end
-end

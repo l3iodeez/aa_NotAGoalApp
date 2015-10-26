@@ -1,3 +1,4 @@
+require 'byebug'
 class User < ActiveRecord::Base
 
   validates :username, :password_digest, :session_token, presence: true
@@ -9,7 +10,7 @@ class User < ActiveRecord::Base
   def self.find_by_credentials(username, password)
     user = User.find_by_username(username)
     if user && user.is_password?(password)
-      user
+      return user
     end
     nil
   end
@@ -30,6 +31,7 @@ class User < ActiveRecord::Base
 
   def reset_session_token!
     self.session_token = SecureRandom::urlsafe_base64
+    save!
   end
 
   private
