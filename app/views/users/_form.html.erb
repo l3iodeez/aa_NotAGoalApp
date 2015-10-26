@@ -1,0 +1,27 @@
+<form action="<%= users_url %>" method="post">
+  <input
+   type="hidden"
+   name="_method"
+   value="post">
+  </input>
+
+
+
+  <%= auth_token %>
+  <label>Username
+    <input
+      type="text"
+      name="user[username]"
+      value="<%= user.username %>">
+    </input>
+  </label>
+  <label>Password
+    <input
+      type="password"
+      name="user[password]">
+    </input>
+  </label>
+
+  <button>Create User</button>
+
+</form>
