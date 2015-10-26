@@ -54,7 +54,6 @@ feature "signing in" do
   end
 
   scenario "validates the presence of the users's username" do
-    save_and_open_page
     click_button "Sign In"
     expect(page).to have_content "Sign In"
     expect(page).to have_content "Invalid Username or Password"
@@ -74,11 +73,11 @@ feature "signing in" do
     end
 
     scenario "shows Sign Out button when logged in" do
-      expect(page).to have_content "Sign Out"
+      expect(page).to have_button "Sign Out"
     end
 
     scenario "redirects to goals index page on success" do
-      expect(page).to have_content "Sign Out"
+      expect(page).to have_button "Sign Out"
       click_button "Sign Out"
       sign_in_as_henry_henry
       expect(page).to have_content "Goals"
@@ -92,19 +91,22 @@ feature "signing in" do
 end
 
 feature "signing out" do
-
-  scenario "begins with logged out state" do
-    visit new_session_url
-    expect(page).to_not have_content "Sign Out"
-  end
-
   before(:each) do
     sign_up_as_henry_henry
+    click_button "Sign Out"
+  end
+
+  scenario "begins with logged out state" do
+    expect(page).to_not have_button "Sign Out"
   end
 
   scenario "doesn't show username on the homepage after logout" do
-    click_button "Sign  Out"
     expect(page).to_not have_content "HenryHenry"
   end
 
+  scenario "cannot access user page when not signed in" do
+    user = User.first
+    visit user_url(user)
+    expect(page).to have_content "Sign In"
+  end
 end

@@ -1,5 +1,7 @@
 class UsersController < ApplicationController
 
+  before_action :verify_signed_in, only: [:show]
+
   def show
     @user = User.find(params[:id])
   end
@@ -13,6 +15,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
 
     if @user.save
+      sign_in(@user)
       redirect_to user_url(@user)
     else
       flash.now[:errors] = @user.errors.full_messages
