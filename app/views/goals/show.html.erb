@@ -1,0 +1,12 @@
+<h1><%= @goal.title %></h1>
+
+<p><%= @goal.body %></p>
+
+<br>
+
+<a href="<%= edit_goal_url(@goal) %>">Edit Goal</a>
+
+<br>
+<br>
+
+<%= render 'shared/delete_goal' %>

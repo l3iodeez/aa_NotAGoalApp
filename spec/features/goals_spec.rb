@@ -3,7 +3,7 @@ require 'rails_helper'
 
 feature "Adding Goals" do
   before(:each) do
-    sign_up("fionafiona")
+    sign_up("fionafiona", "password")
   end
 
   scenario "User page has a link to add goals" do
@@ -48,7 +48,7 @@ feature "Adding Goals" do
     scenario "Only designated user can add to their goals" do
       click_button 'Sign Out'
       sign_up_as_henry_henry
-      visit 'users/1'
+      visit user_url(User.all.first)
       expect(page).to_not have_content "Add Goal"
     end
 

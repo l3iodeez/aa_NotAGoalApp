@@ -1,2 +1,21 @@
 <h1> Goals </h1>
 <%= @user.username %>
+
+<ol>
+  <% @goals.each do |goal| %>
+    <li>
+      <% unless goal.private || current_user == @user %>
+        <a href="<%= goal_url(goal) %>"><%= goal.title %></a>
+        <% if current_user == @user %>
+          -- <a href="<%= edit_goal_url(goal) %>">Edit Goal</a>
+          -- <%= render 'shared/delete_goal', goal: goal %>
+        <% end %>
+      <% end %>
+    </li>
+  <% end %>
+</li>
+<br>
+<br>
+<% if current_user == @user %>
+  <a href="<%= new_goal_url %>">Add Goal</a>
+<% end %>
