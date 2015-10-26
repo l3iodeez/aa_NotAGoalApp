@@ -1,19 +1,23 @@
 <h1> Goals </h1>
 <%= @user.username %>
+<br>
 
-<ol>
+<p>Completed Goals: <%= @goals.where(completed: true).size %></p>
+
+<ul>
   <% @goals.each do |goal| %>
-    <li>
-      <% unless goal.private || current_user == @user %>
+    <% if !goal.completed && (current_user == @user || !goal.private) %>
+      <li>
         <a href="<%= goal_url(goal) %>"><%= goal.title %></a>
         <% if current_user == @user %>
+          -- <%= render 'shared/complete_goal', goal: goal %>
           -- <a href="<%= edit_goal_url(goal) %>">Edit Goal</a>
           -- <%= render 'shared/delete_goal', goal: goal %>
         <% end %>
-      <% end %>
-    </li>
+      </li>
+    <% end %>
   <% end %>
-</li>
+</ul>
 <br>
 <br>
 <% if current_user == @user %>

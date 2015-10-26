@@ -48,7 +48,7 @@ feature "Adding Goals" do
     scenario "Only designated user can add to their goals" do
       click_button 'Sign Out'
       sign_up_as_henry_henry
-      visit user_url(User.all.first)
+      visit user_url(User.first)
       expect(page).to_not have_content "Add Goal"
     end
 
@@ -72,11 +72,11 @@ feature "user page" do
 
   scenario "doesn't show completed goals" do
     click_button "Complete Goal"
-    expect(page).to not_have_content "Public Title"
+    expect(page).to_not have_content "Public Title"
   end
 
   scenario "has a link to edit each goal" do
-    expected(page).to have_content "Edit Goal"
+    expect(page).to have_content "Edit Goal"
   end
 
   scenario "has a button to delete each goal" do
@@ -94,17 +94,17 @@ feature "user page" do
       create_goal("Private Title", "private body")
       click_button 'Sign Out'
       sign_up_as_henry_henry
-      visit 'users/1/'
+      visit user_url(User.first)
     end
 
     scenario "doesn't show private goals to other users" do
       expect(page).to have_content "Public Title"
-      expect(page).to not_have_content "Private Title"
+      expect(page).to_not have_content "Private Title"
     end
 
     scenario "doesn't allow other users to edit or delete goals" do
-      expect(page).to not_have_button "Delete Goal"
-      expect(page).to not_have_content "Edit Goal"
+      expect(page).to_not have_button "Delete Goal"
+      expect(page).to_not have_content "Edit Goal"
     end
 
   end
@@ -117,14 +117,13 @@ feature "the public goal index" do
     create_goal("public", "body", false)
     click_button 'Sign Out'
     sign_up("factorygirl", "password")
+    visit goals_url
 
   end
 
   scenario "doesn't show private goals" do
-    visit goals_url
-
     expect(page).to have_content "public"
-    expect(page).to not_have_content "private"
+    expect(page).to_not have_content "private"
   end
 
   scenario "has a link to user's goal page" do

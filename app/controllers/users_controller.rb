@@ -3,8 +3,9 @@ class UsersController < ApplicationController
   before_action :verify_signed_in, only: [:show]
 
   def show
-    @user = User.includes(:goals).find(params[:id])
-    @goals = @user.goals.order("created_at DESC")
+    @user = User.includes(:goals).order("goals.created_at DESC").find(params[:id])
+    @goals = @user.goals
+
       render :show
   end
 

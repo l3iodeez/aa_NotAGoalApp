@@ -1,5 +1,5 @@
 class GoalsController < ApplicationController
-  before_action :set_goal, except: [:new, :create]
+  before_action :set_goal, except: [:new, :create, :index]
   before_action :verify_signed_in, except: :show
   def new
     @goal = Goal.new
@@ -16,7 +16,13 @@ class GoalsController < ApplicationController
     end
   end
 
+  def index
+    @goals = Goal.all.where(private: false, completed: false)
+    render :index
+  end
+
   def show
+
     render :show
   end
 

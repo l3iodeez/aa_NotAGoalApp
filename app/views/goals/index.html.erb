@@ -1,0 +1,11 @@
+<h1>All Goals</h1>
+<a href="<%= user_url(current_user) %>">My Goals</a>
+<br>
+<br>
+
+
+<ul>
+  <% @goals.each do |goal| %>
+    <li><%= goal.title unless goal.private %></li>
+  <% end %>
+</ul>
